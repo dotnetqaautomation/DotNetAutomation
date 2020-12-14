@@ -27,7 +27,8 @@ namespace DotNetAutomation.GoogleDataDrivenTest.TestDataAccess
                             string keyword = split[0].ToString();
                             string expectedTitle = split[1].ToString();
 
-                            var testCase = new TestCaseData(keyword).Returns(expectedTitle);
+                            //var testCase = new TestCaseData(keyword).Returns(expectedTitle);
+                            var testCase = new TestCaseData(keyword, expectedTitle);
                             testCases.Add(testCase);
                         }
                     }
