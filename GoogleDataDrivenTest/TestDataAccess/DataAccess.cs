@@ -12,29 +12,37 @@ namespace DotNetAutomation.GoogleDataDrivenTest.TestDataAccess
             get
             {
                 var testCases = new List<TestCaseData>();
-
-                using (var fs = File.OpenRead(@"C:\Users\aayush.gupta\source\repos\DotNetAutomation\GoogleDataDrivenTest\QADataDriven.csv"))
-                using (var sr = new StreamReader(fs))
+                try
                 {
-                    string line = string.Empty;
-                    while (line != null)
+                    using (var fs = File.OpenRead(@"C:\Users\aayush.gupta\source\repos\DotNetAutomation\GoogleDataDrivenTest\QADataDriven.csv"))
+                    using (var sr = new StreamReader(fs))
                     {
-                        line = sr.ReadLine();
-                        if (line != null)
+                        string line = string.Empty;
+                        while (line != null)
                         {
-                            string[] split = line.Split(new char[] { ',' }, StringSplitOptions.None);
+                            line = sr.ReadLine();
+                            if (line != null)
+                            {
+                                string[] split = line.Split(new char[] { ',' }, StringSplitOptions.None);
 
-                            string keyword = split[0].ToString();
-                            string expectedTitle = split[1].ToString();
+                                string keyword = split[0].ToString();
+                                string expectedTitle = split[1].ToString();
 
-                            //var testCase = new TestCaseData(keyword).Returns(expectedTitle);
-                            var testCase = new TestCaseData(keyword, expectedTitle);
-                            testCases.Add(testCase);
+                                //var testCase = new TestCaseData(keyword).Returns(expectedTitle);
+                                var testCase = new TestCaseData(keyword, expectedTitle);
+                                testCases.Add(testCase);
+                            }
                         }
                     }
+                    return testCases;
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Exception occured - {e}");
                 }
                 return testCases;
             }
         }
     }
 }
+
