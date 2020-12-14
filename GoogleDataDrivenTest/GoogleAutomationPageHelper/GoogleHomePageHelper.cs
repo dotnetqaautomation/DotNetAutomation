@@ -1,5 +1,6 @@
 ﻿using NUnit_Demo;
 using OpenQA.Selenium;
+using System;
 
 namespace DotNetAutomation.GoogleDataDrivenTest.GoogleAutomationPageHelper
 {
@@ -20,9 +21,16 @@ namespace DotNetAutomation.GoogleDataDrivenTest.GoogleAutomationPageHelper
         [NUnit.Framework.OneTimeSetUp]
         public void start_Browser()
         {
-            browser.Init_Browser();
-            driver = browser.getDriver;
-            googlePageObject = new GooglePageObject.GoogleHomePageObject(driver);
+            try
+            {
+                browser.Init_Browser();
+                driver = browser.getDriver;
+                googlePageObject = new GooglePageObject.GoogleHomePageObject(driver);
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception occured - {e}");
+            }
         }
 
         /// <summary>
@@ -32,9 +40,16 @@ namespace DotNetAutomation.GoogleDataDrivenTest.GoogleAutomationPageHelper
         /// <param name="pageObject"></param>
         public void Search(string keyword, GooglePageObject.GoogleHomePageObject pageObject)
         {
-            var element = pageObject.searchBar;
-            element.SendKeys(keyword);
-            element.Submit();
+            try
+            {
+                var element = pageObject.searchBar;
+                element.SendKeys(keyword);
+                element.Submit();
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine($"Exception occured - {e}");
+            }
         }
 
         [NUnit.Framework.OneTimeTearDown]
